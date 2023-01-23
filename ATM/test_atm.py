@@ -17,3 +17,6 @@ def test_withdraw_300_usd():
 
 def test_withdraw_434_usd():
     assert withdraw(434) == [200, 200, 20, 10, 2, 2]
+
+def test_print_withdraw_434_usd():
+    assert print_withdraw(434) == "2 bills of 200.\n1 bill of 20.\n1 bill of 10.\n2 coins of 2.\n"
