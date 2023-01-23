@@ -14,3 +14,6 @@ def test_withdraw_100_usd():
 
 def test_withdraw_300_usd():
     assert withdraw(300) == [200, 100]
+
+def test_withdraw_434_usd():
+    assert withdraw(434) == [200, 200, 20, 10, 2, 2]

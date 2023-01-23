@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 def find_largest_bill_for_amount(amount):
-    allowed_bills = [200,100]
+    allowed_bills = [500, 200, 100, 50, 20, 10, 5, 2, 1]
 
     for bill in allowed_bills:
         if amount >= bill:
