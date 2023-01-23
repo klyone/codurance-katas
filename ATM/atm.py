@@ -6,6 +6,18 @@ def is_bill(bill_coin):
     else:
         return False
 
+def get_money_type(money, amount):
+    money_type = "bill"
+
+    if not is_bill(money):
+        money_type = "coin"
+
+    if amount > 1:
+        money_type = money_type + "s"
+
+    return money_type
+
+
 def count_bill_or_coin_for(bill_coin, money):
     count = 0
 
@@ -27,36 +39,29 @@ def find_largest_bill_or_coin_for(amount):
 
 
 def withdraw(amount):
-    current_amount = amount
     withdraw_money = []
 
-    while current_amount > 0:
-        money = find_largest_bill_or_coin_for(current_amount)
-        current_amount = current_amount - money
+    while amount > 0:
+        money = find_largest_bill_or_coin_for(amount)
+        amount = amount - money
         withdraw_money.append(money)
 
     return withdraw_money
 
 def print_withdraw(amount):
     withdraw_money = withdraw(amount)
-    old_w = -1
+    previous_money = -1
     withdraw_string = ""
 
-    for w in withdraw_money:
-        if old_w == w:
+    for money in withdraw_money:
+        if previous_money == money:
             continue
 
-        num = count_bill_or_coin_for(w, withdraw_money)
-        if is_bill(w):
-            money_type = "bill"
-        else:
-            money_type = "coin"
+        quantity = count_bill_or_coin_for(money, withdraw_money)
+        money_type = get_money_type(money, quantity)
+        withdraw_line = f"{quantity} {money_type} of {money}.\n"
+        withdraw_string = withdraw_string + withdraw_line
 
-        if num > 1:
-            money_type = money_type + "s"
-
-        old_w = w
-        tmp = f"{num} {money_type} of {w}.\n"
-        withdraw_string = withdraw_string + tmp
+        previous_money = money
 
     return withdraw_string
