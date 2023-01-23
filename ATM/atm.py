@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 
-def find_largest_bill_for_amount(amount):
-    allowed_bills = [500, 200, 100, 50, 20, 10, 5, 2, 1]
+def find_largest_bill_or_coin_for(amount):
+    allowed_money = [500, 200, 100, 50, 20, 10, 5, 2, 1]
 
-    for bill in allowed_bills:
-        if amount >= bill:
+    for money in allowed_money:
+        if amount >= money:
             break
 
-    return bill
+    return money
 
 
 def withdraw(amount):
     current_amount = amount
-    withdraw_bills = []
+    withdraw_money = []
 
     while current_amount > 0:
-        bill = find_largest_bill_for_amount(current_amount)
-        current_amount = current_amount - bill
-        withdraw_bills.append(bill)
+        money = find_largest_bill_or_coin_for(current_amount)
+        current_amount = current_amount - money
+        withdraw_money.append(money)
 
-    return withdraw_bills
+    return withdraw_money
