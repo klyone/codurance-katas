@@ -8,3 +8,6 @@ def test_nothing():
 
 def test_withdraw_200_usd():
     assert withdraw(200) == [200]
+
+def test_withdraw_100_usd():
+    assert withdraw(100) == [100]
