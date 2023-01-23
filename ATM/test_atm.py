@@ -7,4 +7,4 @@ def test_nothing():
     pass
 
 def test_withdraw_200_usd():
-    assert witdhdraw(200) == [200]
+    assert withdraw(200) == [200]
