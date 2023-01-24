@@ -8,19 +8,19 @@ def test_nothing():
 
 def test_withdraw_200_usd():
     atm = ATM()
-    assert atm.withdraw(200) == [200]
+    assert ATM.extract_money_quantity(atm.withdraw(200)) == [200]
 
 def test_withdraw_100_usd():
     atm = ATM()
-    assert atm.withdraw(100) == [100]
+    assert ATM.extract_money_quantity(atm.withdraw(100)) == [100]
 
 def test_withdraw_300_usd():
     atm = ATM()
-    assert atm.withdraw(300) == [200, 100]
+    assert ATM.extract_money_quantity(atm.withdraw(300)) == [200, 100]
 
 def test_withdraw_434_usd():
     atm = ATM()
-    assert atm.withdraw(434) == [200, 200, 20, 10, 2, 2]
+    assert ATM.extract_money_quantity(atm.withdraw(434)) == [200, 200, 20, 10, 2, 2]
 
 def test_print_withdraw_434_usd():
     atm = ATM()
