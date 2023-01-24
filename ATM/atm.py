@@ -12,8 +12,8 @@ class Money:
         return self.type
 
 class ATM:
-    def __init__(self, money=[Money(500, "bill"), Money(200, "bill"), Money(100, "bill"), Money(50, "bill"), Money(20, "bill"), Money(10, "bill"), Money(5, "bill"), Money(2, "coin"), Money(1, "coin")]):
-        self.allowed_money = money
+    def __init__(self, allowed_money=[Money(500, "bill"), Money(200, "bill"), Money(100, "bill"), Money(50, "bill"), Money(20, "bill"), Money(10, "bill"), Money(5, "bill"), Money(2, "coin"), Money(1, "coin")]):
+        self.allowed_money = allowed_money
 
     @staticmethod
     def __count_bill_or_coin_for(bill_coin, money_list):
