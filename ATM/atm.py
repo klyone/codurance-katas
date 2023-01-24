@@ -12,7 +12,11 @@ class Money:
         return self.type
 
 class ATM:
-    def __init__(self, allowed_money=[Money(500, "bill"), Money(200, "bill"), Money(100, "bill"), Money(50, "bill"), Money(20, "bill"), Money(10, "bill"), Money(5, "bill"), Money(2, "coin"), Money(1, "coin")]):
+    def __init__(self, initial_amount=[2, 3, 4, 12, 20, 50, 100, 250, 500], allowed_money=[Money(500, "bill"), Money(200, "bill"), Money(100, "bill"), Money(50, "bill"), Money(20, "bill"), Money(10, "bill"), Money(5, "bill"), Money(2, "coin"), Money(1, "coin")]):
+        if len(initial_amount) != len(allowed_money):
+            raise Exception()
+
+        self.available_money = initial_amount
         self.allowed_money = allowed_money
 
     @staticmethod
@@ -70,6 +74,13 @@ class ATM:
 
         return withdraw_string
 
+    def get_state(self):
+        state = []
+        for i in range(len(self.allowed_money)):
+            state.append([self.allowed_money[i].get_quantity(), self.available_money[i]])
+        return state
+
 if __name__ == "__main__":
     atm = ATM()
+    print(atm.get_state())
     print(atm.print_withdraw(434))
