@@ -12,8 +12,8 @@ class Money:
         return self.type
 
 class ATM:
-    def __init__(self, initial_amount=[2, 3, 4, 12, 20, 50, 100, 250, 500], allowed_money=[Money(500, "bill"), Money(200, "bill"), Money(100, "bill"), Money(50, "bill"), Money(20, "bill"), Money(10, "bill"), Money(5, "bill"), Money(2, "coin"), Money(1, "coin")]):
-        if len(initial_amount) != len(allowed_money):
+    def __init__(self, initial_amount=None, allowed_money=[Money(500, "bill"), Money(200, "bill"), Money(100, "bill"), Money(50, "bill"), Money(20, "bill"), Money(10, "bill"), Money(5, "bill"), Money(2, "coin"), Money(1, "coin")]):
+        if initial_amount != None and len(initial_amount) != len(allowed_money):
             raise Exception()
 
         self.available_money = initial_amount
@@ -38,9 +38,15 @@ class ATM:
         return list(map(ATM.__get_quantity,money_list))
 
     def __find_largest_bill_or_coin_for(self, amount):
-        for money in self.allowed_money:
+        for i in range(len(self.allowed_money)):
+            money = self.allowed_money[i]
             if amount >= money.get_quantity():
-                break
+                if self.available_money == None:
+                    break
+                if self.available_money[i] > 0:
+                    self.available_money[i] = self.available_money[i] - 1
+                    break
+                continue
 
         return money
 
@@ -76,11 +82,13 @@ class ATM:
 
     def get_state(self):
         state = []
+        if self.available_money == None:
+            return state
+
         for i in range(len(self.allowed_money)):
             state.append([self.allowed_money[i].get_quantity(), self.available_money[i]])
         return state
 
 if __name__ == "__main__":
     atm = ATM()
-    print(atm.get_state())
     print(atm.print_withdraw(434))

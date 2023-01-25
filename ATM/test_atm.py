@@ -27,5 +27,5 @@ def test_print_withdraw_434():
     assert atm.print_withdraw(434) == "2 bills of 200.\n1 bill of 20.\n1 bill of 10.\n2 coins of 2.\n"
 
 def test_check_atm_state():
-    atm = ATM()
+    atm = ATM(initial_amount = [2, 3, 4, 12, 20, 50, 100, 250, 500])
     assert atm.get_state() == [[500, 2], [200, 3], [100, 4], [50, 12], [20, 20], [10, 50], [5, 100], [2, 250], [1, 500]]
