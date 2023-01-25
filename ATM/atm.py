@@ -92,3 +92,7 @@ class ATM:
 if __name__ == "__main__":
     atm = ATM()
     print(atm.print_withdraw(434))
+
+    atm = ATM(initial_amount = [2, 3, 5, 12, 20, 50, 100, 250, 500])
+    print(atm.print_withdraw(1725))
+    print(atm.print_withdraw(1825))
