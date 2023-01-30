@@ -138,3 +138,24 @@ def testAddTwoItemsToShoppingCartAndPrint(mocker):
             call("--------------------------------------------"),
         ]
     )
+
+def testDeleteItemAndPrintShoppingCart(mocker):
+    cart = ShoppingCart()
+    product = Product("Iceberg", 1.55, 15, 21)
+    cart.addItem(product)
+    cart.deleteItem("Iceberg")
+    mocker_print = mocker.patch("builtins.print")
+    cart.printShoppingCart()
+    mocker_print.assert_has_calls(
+        [
+            call("--------------------------------------------"),
+            call("| Product name | Price with VAT | Quantity |"),
+            call("| -----------  | -------------- | -------- |"),
+            call("|------------------------------------------|"),
+            call("| Promotion:                               |"),
+            call("--------------------------------------------"),
+            call("| Total productos: 0                       |"),
+            call("| Total price: 0.00 €                      |"),
+            call("--------------------------------------------"),
+        ]
+    )

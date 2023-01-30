@@ -84,3 +84,9 @@ class ShoppingCart:
 
     def addItem(self, product):
         self.products.append(product)
+
+    def deleteItem(self, product_name):
+        for p in self.products:
+            if product_name == p.getName():
+                self.products.remove(p)
+                break
