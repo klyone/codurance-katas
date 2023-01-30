@@ -79,6 +79,43 @@ def testAddSingleItemsToShoppingCartAndPrint(mocker):
         ]
     )
 
+def testAddMultipleItemsToShoppingCartAndPrint(mocker):
+    cart = ShoppingCart()
+    product = Product("Iceberg", 1.55, 15, 21)
+    cart.addItem(product)
+    cart.addItem(product)
+    cart.addItem(product)
+    product = Product("Tomatoe", 0.52, 15, 21)
+    cart.addItem(product)
+    product = Product("Chicken", 1.34, 12, 21)
+    cart.addItem(product)
+    product = Product("Bread  ", 0.71, 12, 10)
+    cart.addItem(product)
+    cart.addItem(product)
+    product = Product("Corn   ", 1.21, 12, 10)
+    cart.addItem(product)
+    mocker_print = mocker.patch("builtins.print")
+    cart.printShoppingCart()
+    mocker_print.assert_has_calls(
+        [
+            call("--------------------------------------------"),
+            call("| Product name | Price with VAT | Quantity |"),
+            call("| -----------  | -------------- | -------- |"),
+            call("| Iceberg      | 2.17 €         | 3        |"),
+            call("| Tomatoe      | 0.73 €         | 1        |"),
+            call("| Chicken      | 1.83 €         | 1        |"),
+            call("| Bread        | 0.88 €         | 2        |"),
+            call("| Corn         | 1.50 €         | 1        |"),
+            call("|------------------------------------------|"),
+            call("| Promotion:                               |"),
+            call("--------------------------------------------"),
+            call("| Total productos: 8                       |"),
+            call("| Total price: 12.33 €                     |"),
+            call("--------------------------------------------"),
+        ]
+    )
+
+
 def testAddTwoItemsToShoppingCartAndPrint(mocker):
     cart = ShoppingCart()
     product = Product("Iceberg", 1.55, 15, 21)
