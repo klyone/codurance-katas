@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import math
 
 # Get the original implementation at:
 # https://realpython.com/python-rounding/#:~:text=To%20implement%20the%20%E2%80%9Crounding%20up,equal%20to%20a%20given%20number.
 def round_up(n, decimals=0):
-    multiplier = 10 ** decimals
-    return math.ceil(n * multiplier) / multiplier
+    multiplier = 10 ** (decimals+2)
+    n_int = int(n * multiplier)
+    return math.ceil(n_int / 100.0) / (multiplier / 100.0)
 
 class Product:
     def __init__(self, name, price, revenue, vat):
@@ -54,7 +56,13 @@ class ShoppingCart:
             if not product_name in processed_products:
                 product_final_price = p.getFinalPrice()
                 number_of_products = self.__getNumberOfSpecificProduct(product_name)
-                ticket_line = "| " + str(product_name) + "      | " + str("{0:.2f}".format(product_final_price)) +" €         | " + str(number_of_products) + "        |"
+                ticket_line = "| " + str(product_name)
+                ticket_line = ticket_line.ljust(len(ticket_line)+(13-len(product_name))," ")
+                ticket_line = ticket_line + "| " + str("{0:.2f}".format(product_final_price)) + " €"
+                ticket_line = ticket_line.ljust(len(ticket_line)+(13-len(str("{0:.2f}".format(product_final_price))))," ")
+                ticket_line = ticket_line + "| " + str(number_of_products)
+                ticket_line = ticket_line.ljust(len(ticket_line)+(9-len(str(number_of_products)))," ")
+                ticket_line = ticket_line +"|"
                 print(ticket_line)
                 processed_products.append(product_name)
                 total_price = total_price + (product_final_price * number_of_products)
@@ -64,8 +72,14 @@ class ShoppingCart:
         print("|------------------------------------------|")
         print("| Promotion:                               |")
         print("--------------------------------------------")
-        print("| Total productos: " + str(total_products) + "                       |")
-        print("| Total price: " + str("{0:.2f}".format(total_price)) + " €                      |")
+        total_line = "| Total productos: " + str(total_products)
+        total_line = total_line.ljust(len(total_line)+(42-18-len(str(total_products))))
+        total_line = total_line + "|"
+        print(total_line)
+        total_line = "| Total price: " + str("{0:.2f}".format(total_price)) + " €"
+        total_line = total_line.ljust(len(total_line)+(42-16-len(str("{0:.2f}".format(total_price)))))
+        total_line = total_line + "|"
+        print(total_line)
         print("--------------------------------------------")
 
     def addItem(self, product):
