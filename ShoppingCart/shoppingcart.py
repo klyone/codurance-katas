@@ -10,6 +10,17 @@ def round_up(n, decimals=0):
     n_int = int(n * multiplier)
     return math.ceil(n_int / 100.0) / (multiplier / 100.0)
 
+class Discount:
+    def __init__(self, amount, id):
+        self.amount = amount
+        self.id = id
+
+    def getId(self):
+        return self.id
+
+    def getAmount(self):
+        return self.amount
+
 class Product:
     def __init__(self, name, price, revenue, vat):
         self.name = name
@@ -31,6 +42,7 @@ class Product:
 class ShoppingCart:
     def __init__(self):
         self.products = []
+        self.discount = None
 
     def __getNumberOfSpecificProduct(self, product_name):
         n = 0
@@ -70,7 +82,14 @@ class ShoppingCart:
             total_products = total_products + 1
 
         print("|------------------------------------------|")
-        print("| Promotion:                               |")
+        promo_line = "| Promotion: "
+        if self.discount != None:
+            promo_line = promo_line + str(self.discount.getAmount()) + "% off with code "+self.discount.getId()
+            total_price = round_up(total_price - (total_price * self.discount.getAmount()/100.0),2)
+
+        promo_line = promo_line.ljust(len(promo_line)+(43-len(promo_line)), " ")
+        promo_line = promo_line + "|"
+        print(promo_line)
         print("--------------------------------------------")
         total_line = "| Total productos: " + str(total_products)
         total_line = total_line.ljust(len(total_line)+(42-18-len(str(total_products))))
@@ -90,3 +109,6 @@ class ShoppingCart:
             if product_name == p.getName():
                 self.products.remove(p)
                 break
+
+    def applyDiscount(self, discount):
+        self.discount = discount
